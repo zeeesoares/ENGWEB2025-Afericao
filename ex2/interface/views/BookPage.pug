@@ -1,0 +1,99 @@
+extends layout
+
+block content
+    .w3-card-4
+        header.w3-container.w3-red.w3-margin-bottom.w3-padding
+            h1= livro.title
+            h2
+                a(href=`/`) Voltar
+        .w3-container
+            .w3-row-padding
+                .w3-col.m6
+                    ul.w3-ul
+                        li
+                            strong Series:
+                            span= livro.series || 'N/A'
+                        li
+                            strong Author:
+                            span= livro.author.join(', ') || 'Unknown'
+                        li
+                            strong Language:
+                            span= livro.language || 'Unknown'
+                        li
+                            strong ISBN:
+                            span= livro.isbn || 'N/A'
+                        li
+                            strong Genres:
+                            span= livro.genres.join(', ') || 'None specified'
+                        li
+                            strong Characters:
+                            span= livro.characters.join(', ') || 'Not listed'
+                        li
+                            strong Book Format:
+                            span= livro.bookFormat || 'Not specified'
+                        li
+                            strong Edition:
+                            span= livro.edition || 'N/A'
+                        li
+                            strong Pages:
+                            span= livro.pages || 'Unknown'
+                        li
+                            strong Publisher:
+                            span= livro.publisher || 'Unknown'
+                        li
+                            strong Publish Date:
+                            span= livro.publishDate || 'Not specified'
+                        li
+                            strong First Publish Date:
+                            span= livro.firstPublishDate || 'Unknown'
+                        li
+                            strong Cover Image:
+                            if livro.coverImg
+                                img.w3-image(src=livro.coverImg, alt=livro.title, style='width:100%')
+                            else
+                                p No cover image available
+                .w3-col.m6
+                    ul.w3-ul
+                        li
+                            strong Awards:
+                            ul.w3-ul
+                                if livro.awards.length
+                                    each award in livro.awards
+                                        li= award
+                                else
+                                    li No awards listed
+                        li
+                            strong Number of Ratings:
+                            span= livro.numRatings || 'No ratings'
+                        li
+                            strong Ratings by Stars:
+                            ul.w3-ul
+                                if livro.ratingsByStars.length
+                                    each rating in livro.ratingsByStars
+                                        li= rating
+                                else
+                                    li No ratings breakdown available
+                        li
+                            strong Liked Percent:
+                            span= livro.likedPercent ? livro.likedPercent + '%' : 'N/A'
+                        li
+                            strong Setting:
+                            span= livro.setting.join(', ') || 'Not specified'
+                        li
+                            strong BBE Score:
+                            span= livro.bbeScore || 'N/A'
+                        li
+                            strong BBE Votes:
+                            span= livro.bbeVotes || 'No votes'
+            .w3-container.w3-center.w3-padding
+                .w3-card.w3-padding.w3-margin.w3-white.w3-round
+                    h2 Price: $#{livro.price || 'Not available'}
+            .w3-container.w3-center.w3-padding
+                .w3-card.w3-padding.w3-margin.w3-round
+                    h3 Rating
+                    .w3-light-grey.w3-round.w3-padding
+                        - var rating = livro.rating || 0;
+                        - var color = rating >= 4 ? 'w3-green' : rating >= 2 ? 'w3-yellow' : 'w3-red';
+                        .w3-container.w3-round.w3-padding.w3-center.w3-white
+                            .w3-container.w3-round.w3-padding.w3-center.w3-text-black(class=color, style=`width: ${(rating / 5) * 100}%; max-width: 100%; text-align: center;`)
+                                | #{rating} / 5

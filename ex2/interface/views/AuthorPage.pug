@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  .w3-container
+    .w3-card-4.w3-margin-bottom
+      .w3-container.w3-red
+        h1.w3-text-white Livros de #{autor}
+        h1
+          a(href="/") Voltar
+
+    if livros.length  
+      each livro in livros
+        .w3-card-4.w3-margin-bottom.w3-light-grey.w3-round
+          .w3-container
+            .w3-row
+              .w3-col.s3
+                img.w3-round.w3-image(src=livro.coverImg, alt=livro.title)
+              .w3-col.s9
+                h2.w3-text-blue= livro.title 
+                p
+                  strong ISBN:  
+                  span.w3-text-gray #{livro.isbn}  
+                p
+                  strong Ano:  
+                  span.w3-text-gray #{livro.publishDate}
+                p
+                  strong Editora:  
+                  span.w3-text-gray #{livro.publisher}
+                p
+                  strong Páginas:  
+                  span.w3-text-gray #{livro.pages}  
+                p
+                  strong Avaliação:  
+                  span.w3-text-gray #{livro.rating}  
+                p
+                  strong Gêneros:  
+                  span.w3-text-gray= livro.genres.join(', ')
+                p
+                  strong Personagens:  
+                  span.w3-text-gray= livro.characters.join(', ')
+                p
+                  strong Descrição:  
+                  span.w3-text-gray= livro.description.slice(0, 200) + '...' 
+                p
+                  strong Preço:  
+                  span.w3-text-gray= livro.price + '€' 
+
+    else 
+      .w3-panel.w3-yellow.w3-padding.w3-round
+        p.w3-text-black Nenhum livro encontrado para este autor.
+
+    if error
+      .w3-panel.w3-red.w3-padding.w3-round
+        h2.w3-text-white Erro ao carregar os livros
+        p.w3-text-white= error.message

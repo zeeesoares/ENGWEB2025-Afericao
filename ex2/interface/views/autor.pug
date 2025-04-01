@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    .w3-card-4
+        header.w3-container.w3-red.w3-margin-bottom.w3-p
+            h1= autor.nome
+        .w3-container
+            p
+                strong Identificador:
+                |  #{autor.id}
+            p
+                strong Total de Livros:
+                |  #{totalLivros}
+            table.w3-table.w3-striped.w3-bordered.w3-margin-bottom
+                thead
+                    tr
+                        th Título
+                        th Série
+                        th ISBN
+                        th Géneros
+                tbody
+                    each livro in livros
+                        tr
+                            td= livro.title
+                            td= livro.series
+                            td= livro.isbn
+                            td= livro.genres.join(', ')
+            a.w3-button.w3-blue(href='/') Voltar à Página Principal
