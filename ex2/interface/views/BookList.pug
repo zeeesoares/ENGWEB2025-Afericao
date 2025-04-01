@@ -1,30 +1,80 @@
-extends layout 
+extends layout
 
 block content
-    .w3-card-4
-        header.w3-container.w3-red.w3-margin-bottom.w3-p
-            h1= title
-        .w3-container
-            table.w3-table-all.w3-margin-bottom
-                tr
-                    th Id 
-                    th Title
-                    th Author
-                    th Publish Date 
-                    th Pages
-                each livro in livros
-                    tr
-                        td
-                            a(href=`/${livro._id}`)= livro._id
-                        td
-                            a(href=`/${livro._id}`)= livro.title
-                        td
-                            - let authors = livro.author || []
-                            - let authorIds = livro.authorIds || []
-                            each autor, index in authors
-                                - let autorId = authorIds[index] ? authorIds[index] : encodeURIComponent(autor)
-                                a.w3-text-indigo(href=`/entidades/${autorId}`)= autor
-                                if index < authors.length - 1
-                                    | ,  
-                        td= livro.publishDate
-                        td= livro.pages
+  // Full-width red header
+  header.w3-red.w3-padding-24
+    .w3-container
+      h1.w3-text-white= title
+
+  // Main content container
+  .w3-container.w3-padding-0
+    // Book listing table
+    .w3-responsive
+      table.w3-table.w3-margin-top
+        thead
+          tr.w3-red.w3-text-white
+            th.w3-padding-16 ID
+            th.w3-padding-16 Título
+            th.w3-padding-16 Autor(es)
+            th.w3-padding-16 Publicação
+            th.w3-padding-16 Páginas
+        tbody
+          each livro in livros
+            tr.w3-hover-light-grey
+              td.w3-padding-16
+                a.w3-text-red(href=`/${livro._id}`)= livro._id
+              td.w3-padding-16
+                a.w3-text-red(href=`/${livro._id}`)= livro.title
+              td.w3-padding-16
+                - let authors = livro.author || []
+                - let authorIds = livro.authorIds || []
+                each autor, index in authors
+                  - let autorId = authorIds[index] ? authorIds[index] : encodeURIComponent(autor)
+                  a.w3-text-indigo(href=`/entidades/${autorId}`)= autor
+                  if index < authors.length - 1
+                    | ,  
+              td.w3-padding-16= livro.publishDate
+              td.w3-padding-16= livro.pages
+
+    // Empty state message
+    if livros.length === 0
+      .w3-panel.w3-padding-32.w3-center
+        i.fa.fa-book.w3-jumbo.w3-text-red
+        h2 Nenhum livro encontrado
+        p.w3-text-grey Não há livros para exibir
+
+  // Custom styles
+  style.
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+      font-weight: 600;
+      text-align: left;
+    }
+    tr {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    tr:last-child {
+      border-bottom: none;
+    }
+    .w3-hover-light-grey:hover {
+      background-color: #f9f9f9 !important;
+    }
+    .w3-text-red {
+      color: #f44336 !important;
+    }
+    a.w3-text-red:hover {
+      text-decoration: underline;
+    }
+    a.w3-text-indigo {
+      transition: color 0.3s;
+    }
+    a.w3-text-indigo:hover {
+      color: #303f9f !important;
+    }
