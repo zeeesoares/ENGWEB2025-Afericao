@@ -5,7 +5,7 @@
 - **Número de Aluno:** A103995  
 - **Foto:**  
 
-  ![José Soares](../images/josesoares.jpg)  
+  ![José Soares](./images/josesoares.jpg)  
 
 ---
 
